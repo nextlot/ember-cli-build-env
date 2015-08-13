@@ -3,6 +3,7 @@
 
 var replace = require('broccoli-string-replace');
 var renameFiles = require('broccoli-rename-files');
+var removeFile = require('broccoli-file-remover');
 var funnel = require('broccoli-funnel');
 
 function unwatchedTree(dir) {
@@ -33,7 +34,11 @@ module.exports = {
       }]
     });
     
-    var tree = renameFiles(replaceTree, {
+    var removedTree = removeFile(replaceTree, {
+      srcFile: 'env_template.js'
+    });
+    
+    var tree = renameFiles(removedTree, {
       transformFilename: function() {
         return 'env.js';
       }
