@@ -29,16 +29,12 @@ module.exports = {
     var replaceTree = replace(envTree, {
       files: ['env_template.js'],
       patterns: [{
-        match: /\{\{APP_ENV_JSON\}\}/g,
+        match: /APP_ENV_JSON/g,
         replacement: JSON.stringify(appEnvJSON)
       }]
     });
-    
-    var removedTree = removeFile(replaceTree, {
-      srcFile: 'env_template.js'
-    });
-    
-    var tree = renameFiles(removedTree, {
+
+    var tree = renameFiles(replaceTree, {
       transformFilename: function() {
         return 'env.js';
       }
